@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>通过@@Html.Partial来使用分部页</h1>
+@Html.Partial("~/Views/Shared/_PartialPageWidget.cshtml")
+<h1>通过@@Html.RenderPartial来使用分部页</h1>
+@{
+    Html.RenderPartial("~/Views/Shared/_PartialPageWidget.cshtml");
+}
+<h1>通过@@Html.Action来使用分部页</h1>
+@Html.Action("ShowWidget")
+<h1>通过@@Html.RenderAction来使用分部页</h1>
+@{
+    Html.RenderAction("ShowWidget");
+}
+@*当View中引用了一个或多个分部视图时，此View与各分部视图默认得到一样的数据，也就是说View及其中所有的Partial View默认情况下共享View中的ViewData和ViewBag.
+    需要使View和其中引入的Partial View有不同的数据，需要通过Html.Action/Html.RenderAction辅助方法， 并在对于被调用的Action中设置对应的数据*@
+@*1.XXX和RenderXXX的区别在于，一个是直接返回字符串，另外一个是直接写入到相应输出流，因此不能直接放在代码表达式中，必须放在代码块中。
+    前面的示例中两种写法是等价的。RenderXXX有轻微的性能优势，在大量的RenderXXX运行时，才能反映出性能上的优势。
+    2.Partial/RenderPartial通常在单独的文件夹中应用视图标记来帮助View渲染视图模型的一部分。
+    Action/RenderAction执行单独Controller中的Action来显示结果，提供了更多的灵活性，例如利用单独的Controller传递不同值。
+    3.Partial/RenderPartial和Action/RenderAction的参数分别是 partialView和Action的名字。当然还有其他的重载函数，此处是最常用的*@
+
+@*Html.Partial使用方便，在不需要改变数据内容时非常方便。
+    Html.Action 使用更加灵活，可以根据业务要求按需定制Partial View显示内容。*@
